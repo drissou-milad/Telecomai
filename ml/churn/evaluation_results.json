@@ -1,0 +1,143 @@
+{
+  "timestamp": "2026-09-04 16:18:53",
+  "champion": "Gradient Boosting",
+  "selectionCriterion": "Highest Validation ROC-AUC with F1 balance",
+  "models": [
+    {
+      "name": "Gradient Boosting",
+      "accuracy": 0.911,
+      "precision": 0.7658,
+      "recall": 0.7183,
+      "f1Score": 0.7413,
+      "rocAuc": 0.9605,
+      "trainTimeMs": 2288,
+      "confusionMatrix": {
+        "tp": 255,
+        "fp": 78,
+        "tn": 1567,
+        "fn": 100
+      },
+      "isChampion": true,
+      "displayName": "Gradient Boosting (Selected Champion)"
+    },
+    {
+      "name": "Random Forest",
+      "accuracy": 0.91,
+      "precision": 0.7888,
+      "recall": 0.6732,
+      "f1Score": 0.7264,
+      "rocAuc": 0.9579,
+      "trainTimeMs": 726,
+      "confusionMatrix": {
+        "tp": 239,
+        "fp": 64,
+        "tn": 1581,
+        "fn": 116
+      },
+      "isChampion": false,
+      "displayName": "Random Forest"
+    },
+    {
+      "name": "Logistic Regression (Baseline)",
+      "accuracy": 0.83,
+      "precision": 0.5123,
+      "recall": 0.8817,
+      "f1Score": 0.648,
+      "rocAuc": 0.926,
+      "trainTimeMs": 15,
+      "confusionMatrix": {
+        "tp": 313,
+        "fp": 298,
+        "tn": 1347,
+        "fn": 42
+      },
+      "isChampion": false,
+      "displayName": "Logistic Regression (Baseline)"
+    },
+    {
+      "name": "Decision Tree",
+      "accuracy": 0.8995,
+      "precision": 0.7391,
+      "recall": 0.6704,
+      "f1Score": 0.7031,
+      "rocAuc": 0.9235,
+      "trainTimeMs": 27,
+      "confusionMatrix": {
+        "tp": 238,
+        "fp": 84,
+        "tn": 1561,
+        "fn": 117
+      },
+      "isChampion": false,
+      "displayName": "Decision Tree"
+    }
+  ],
+  "featureImportances": [
+    {
+      "raw_name": "tenure_months",
+      "feature": "Subscriber Tenure (Months)",
+      "importance": 0.298,
+      "category": "tenure"
+    },
+    {
+      "raw_name": "complaints",
+      "feature": "Customer Service Complaints (60d)",
+      "importance": 0.2366,
+      "category": "service"
+    },
+    {
+      "raw_name": "usage_drop_pct",
+      "feature": "Usage Decline Rate (% MoM)",
+      "importance": 0.1616,
+      "category": "behavior"
+    },
+    {
+      "raw_name": "is_prepaid",
+      "feature": "Prepaid Contract Type",
+      "importance": 0.0984,
+      "category": "tenure"
+    },
+    {
+      "raw_name": "data_usage_gb",
+      "feature": "Broadband Data Volume (GB)",
+      "importance": 0.0852,
+      "category": "behavior"
+    },
+    {
+      "raw_name": "recharge_frequency",
+      "feature": "Recharge Replenishment Freq",
+      "importance": 0.0527,
+      "category": "billing"
+    },
+    {
+      "raw_name": "arpu_to_usage_ratio",
+      "feature": "Cost per GB Utilization Ratio",
+      "importance": 0.0283,
+      "category": "billing"
+    },
+    {
+      "raw_name": "monthly_spend_dzd",
+      "feature": "Monthly Spending (DZD)",
+      "importance": 0.0206,
+      "category": "billing"
+    },
+    {
+      "raw_name": "calls_count",
+      "feature": "Voice Call Activity Volume",
+      "importance": 0.0186,
+      "category": "behavior"
+    }
+  ],
+  "testSampleSize": 2000,
+  "features": [
+    "monthly_spend_dzd",
+    "data_usage_gb",
+    "calls_count",
+    "complaints",
+    "recharge_frequency",
+    "tenure_months",
+    "usage_drop_pct",
+    "is_prepaid",
+    "arpu_to_usage_ratio"
+  ]
+}

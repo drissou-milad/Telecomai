@@ -1,0 +1,18 @@
+{
+  "modelName": "Isolation Forest (Unsupervised)",
+  "contamination": 0.037,
+  "nEstimators": 150,
+  "maxSamples": "auto (256)",
+  "metricsMonitored": [
+    "Latency (ms)",
+    "Packet Loss (%)",
+    "Connected UEs",
+    "Throughput (Mbps)",
+    "Availability (%)"
+  ],
+  "totalCellsMonitored": 1000,
+  "anomaliesDetected": 37,
+  "normalCells": 963,
+  "rocAucEstimate": 1.0,
+  "trainTimeMs": 331
+}

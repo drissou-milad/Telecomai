@@ -1,0 +1,26 @@
+services:
+  # FastAPI backend - real inference (churn + anomaly models, SHAP, dashboard aggregation)
+  - type: web
+    name: telecomai-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+
+  # React frontend + thin Express reverse proxy (server.ts) - forwards /api/* to telecomai-api.
+  # BACKEND_API_URL must be set manually after telecomai-api's first deploy finishes -
+  # see README "Deployment" section for the exact steps.
+  - type: web
+    name: telecomai-web
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: BACKEND_API_URL
+        sync: false

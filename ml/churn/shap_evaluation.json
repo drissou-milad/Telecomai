@@ -1,0 +1,79 @@
+{
+  "classification_report": {
+    "0": {
+      "precision": 0.958577056225379,
+      "recall": 0.9764105058365758,
+      "f1-score": 0.9674116017107404,
+      "support": 8224.0
+    },
+    "1": {
+      "precision": 0.8804682686383241,
+      "recall": 0.8046171171171171,
+      "f1-score": 0.8408355398646661,
+      "support": 1776.0
+    },
+    "accuracy": 0.9459,
+    "macro avg": {
+      "precision": 0.9195226624318515,
+      "recall": 0.8905138114768465,
+      "f1-score": 0.9041235707877032,
+      "support": 10000.0
+    },
+    "weighted avg": {
+      "precision": 0.9447049355499181,
+      "recall": 0.9459,
+      "f1-score": 0.9449316931268775,
+      "support": 10000.0
+    }
+  },
+  "sample_customer_c10245": {
+    "predicted_probability": 0.9899,
+    "shap_attributions": [
+      {
+        "feature": "complaints",
+        "shap_value": 3.4266,
+        "direction": "increases_churn_risk"
+      },
+      {
+        "feature": "tenure_months",
+        "shap_value": 1.4791,
+        "direction": "increases_churn_risk"
+      },
+      {
+        "feature": "usage_drop_pct",
+        "shap_value": 0.9082,
+        "direction": "increases_churn_risk"
+      },
+      {
+        "feature": "recharge_frequency",
+        "shap_value": 0.6721,
+        "direction": "increases_churn_risk"
+      },
+      {
+        "feature": "data_usage_gb",
+        "shap_value": 0.6331,
+        "direction": "increases_churn_risk"
+      },
+      {
+        "feature": "is_prepaid",
+        "shap_value": 0.5007,
+        "direction": "increases_churn_risk"
+      },
+      {
+        "feature": "arpu_to_usage_ratio",
+        "shap_value": 0.0471,
+        "direction": "increases_churn_risk"
+      },
+      {
+        "feature": "calls_count",
+        "shap_value": -0.0156,
+        "direction": "protects_loyalty"
+      },
+      {
+        "feature": "monthly_spend_dzd",
+        "shap_value": 0.0142,
+        "direction": "increases_churn_risk"
+      }
+    ]
+  }
+}

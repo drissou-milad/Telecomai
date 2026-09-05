@@ -1,0 +1,16 @@
+{
+  "totalCells": 1000,
+  "detectedAnomalies": 37,
+  "nominalCells": 963,
+  "scorePercentiles": {
+    "p1": -0.1868687759148642,
+    "p5": 0.04165554755653215,
+    "p25": 0.11794815925170292,
+    "median": 0.15065581881275267,
+    "p75": 0.1731808674032427
+  },
+  "rocAucVsSyntheticLabels": 1.0,
+  "precision": 0.9459,
+  "recall": 1.0,
+  "f1": 0.9722
+}
