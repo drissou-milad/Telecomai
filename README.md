@@ -218,7 +218,10 @@ instead of running `server.ts`:
 - **Unsupervised Learning**: Isolation Forest is trained without labels; benchmark metrics are computed post-hoc.
 - **Advisory Only**: Network and customer retention recommendations are generated as decision-support advisory outputs, not direct actuators.
 
-See `docs/limitations.md` and `docs/methodology.md` for in-depth discussion.
+See `docs/limitations.md` and `docs/methodology.md` for in-depth discussion,
+and [`docs/model-card.md`](docs/model-card.md) for a concise model card
+(task, inputs/outputs, real evaluation metrics, and honest limitations for
+both the churn and anomaly models).
 
 ---
 
