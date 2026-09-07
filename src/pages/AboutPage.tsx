@@ -27,11 +27,11 @@ export const AboutPage: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', 'telecom_churn_synthetic_dataset.csv');
+    link.setAttribute('download', 'telecom_churn_sample_records.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    setDownloadMsg('Downloaded telecom_churn_synthetic_dataset.csv');
+    setDownloadMsg('Downloaded telecom_churn_sample_records.csv');
     setTimeout(() => setDownloadMsg(null), 4000);
   };
 
@@ -41,11 +41,11 @@ export const AboutPage: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', 'telecom_network_kpis_synthetic.csv');
+    link.setAttribute('download', 'telecom_network_sample_records.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    setDownloadMsg('Downloaded telecom_network_kpis_synthetic.csv');
+    setDownloadMsg('Downloaded telecom_network_sample_records.csv');
     setTimeout(() => setDownloadMsg(null), 4000);
   };
 
@@ -118,21 +118,22 @@ export const AboutPage: React.FC = () => {
           <pre className="text-cyan-300">
 {`                     TELECOMAI ARCHITECTURE
                                 │
-        ┌───────────────────────┼───────────────────────┐
-        │                       │                       │
-  Customer CRM Data       Radio Network KPIs      Hourly Traffic Streams
-   (Spend, Complaints,    (Latency, Packet Loss,   (24h Throughput Demand)
-    Tenure, Recharges)     PRB Users, Availability)     │
-        │                       │                       ▼
-        ▼                       ▼               Capacity Forecasting
-  Random Forest Model     Isolation Forest          (SARIMA Model)
-  (Precision: 0.81)        (Contamination: 3.7%)        │
-        │                       │                       │
-        └───────────────┬───────┴───────────────────────┘
+                ┌───────────────────────┐
+                │                       │
+  Customer CRM Data       Radio Network KPIs
+   (Spend, Complaints,    (Latency, Packet Loss,
+    Tenure, Recharges)     PRB Users, Availability)
+        │                       │
+        ▼                       ▼
+  Gradient Boosting        Isolation Forest
+  (Precision: 0.766)        (Contamination: 3.7%)
+        │                       │
+        └───────────────┬───────┘
                         ▼
                FastAPI Backend / REST API
-           (/api/dashboard, /api/predict/churn,
-            /api/network/cells, /api/predict/anomaly)
+        (/api/predict/churn, /api/predict/anomaly,
+         /api/churn/benchmark, /api/anomaly/specs,
+                /api/dashboard/summary)
                         │
                         ▼
               React + Vite + Tailwind NOC UI
@@ -154,13 +155,13 @@ export const AboutPage: React.FC = () => {
           </div>
           <ul className="text-xs text-slate-300 space-y-2 list-disc pl-4 leading-relaxed">
             <li>
-              <strong>Imbalanced Data Handling:</strong> Standard telecom churn sets suffer from class imbalance (e.g. 5% churn rate). Accuracy is discarded in favor of <strong>ROC-AUC (0.87)</strong>, <strong>Precision (0.81)</strong>, and <strong>Recall (0.79)</strong>.
+              <strong>Imbalanced Data Handling:</strong> Standard telecom churn sets suffer from class imbalance (e.g. ~18% churn rate here). Accuracy alone is discarded in favor of <strong>ROC-AUC (0.961)</strong>, <strong>Precision (0.766)</strong>, and <strong>Recall (0.718)</strong>.
             </li>
             <li>
-              <strong>Algorithm Comparison:</strong> Evaluated Logistic Regression baseline, Decision Trees, Random Forest ensemble, and XGBoost gradient boosting. Random Forest achieved top F1-score with low inference latency (12ms).
+              <strong>Algorithm Comparison:</strong> Evaluated Logistic Regression baseline, Decision Tree, Random Forest, and Gradient Boosting under a stratified 80/20 split. Gradient Boosting was selected as champion for the best recall/F1 balance (0.741 F1) - a missed churner costs more in retention terms than a slightly noisier alert.
             </li>
             <li>
-              <strong>Explainable AI (XAI):</strong> Risk attribution breaks down why a customer is flagged (e.g. 3 complaints +23%, usage decline +18%, short tenure +12%).
+              <strong>Explainable AI (XAI):</strong> SHAP TreeExplainer breaks down why a customer is flagged, per prediction (e.g. tenure, complaints, and usage-decline rate are the top global drivers - see the Predictions page for live per-customer attributions).
             </li>
           </ul>
         </div>
@@ -207,10 +208,14 @@ export const AboutPage: React.FC = () => {
           <div>
             <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Download className="w-4 h-4 text-emerald-400" />
-              Download Synthetic Datasets
+              Download Sample Records
             </h2>
             <p className="text-xs text-slate-400 mt-0.5">
-              Export generated synthetic CSV files for local Pandas / Jupyter notebook reproduction.
+              Exports the small set of demo records shown in this UI (a handful of rows) -
+              not the full training data. For the actual 10,000-row churn dataset and
+              1,000-row cell telemetry used to train the models, see{' '}
+              <code className="text-cyan-300">ml/data/telecom_churn_data.csv</code> and{' '}
+              <code className="text-cyan-300">ml/data/telecom_network_cells.csv</code> in the repository.
             </p>
           </div>
           <span className="text-xs font-mono-num text-slate-500">RFC 4180 CSV</span>
@@ -225,10 +230,10 @@ export const AboutPage: React.FC = () => {
               <FileText className="w-5 h-5 text-cyan-400" />
               <div>
                 <span className="text-xs font-bold text-white block group-hover:text-cyan-300">
-                  churn.csv (Customer Attrition Dataset)
+                  churn_sample.csv (demo subscriber records)
                 </span>
                 <span className="text-[11px] text-slate-400">
-                  12 features • spend, usage, complaints, tenure, risk
+                  12 columns • spend, usage, complaints, tenure, risk
                 </span>
               </div>
             </div>
@@ -243,10 +248,10 @@ export const AboutPage: React.FC = () => {
               <FileText className="w-5 h-5 text-emerald-400" />
               <div>
                 <span className="text-xs font-bold text-white block group-hover:text-emerald-300">
-                  network_kpis.csv (RAN Cell Telemetry)
+                  network_kpis_sample.csv (demo cell records)
                 </span>
                 <span className="text-[11px] text-slate-400">
-                  11 features • latency, packet loss, users, traffic, status
+                  11 columns • latency, packet loss, users, traffic, status
                 </span>
               </div>
             </div>
@@ -267,20 +272,22 @@ export const AboutPage: React.FC = () => {
             <span className="text-cyan-400 font-bold block mb-2">📁 Production File Hierarchy</span>
             <pre className="text-slate-400 text-[11px]">
 {`TelecomAI/
-├── frontend/ (React + Vite + Tailwind + Recharts)
-│   ├── src/
-│   │   ├── components/ (Navbar, KPICard, AlertBadge)
-│   │   ├── pages/ (Dashboard, Customers, Network, Lab)
-│   │   ├── ml/ (Inference Engines & Benchmarks)
-│   │   └── data/ (Simulated Algeria Datasets)
-├── backend/ (FastAPI / Express Microservice)
-│   ├── app/
-│   │   ├── routes/ (customers.py, network.py, predict.py)
-│   │   └── database/ (PostgreSQL schema & models)
-├── ml/ (Scikit-learn Training Pipelines)
-│   ├── churn/ (train.py, predict.py, model.pkl)
-│   └── anomaly/ (train.py, detect.py, model.pkl)
-└── data/ (churn.csv, network_kpis.csv)`}
+├── src/ (React + Vite + Tailwind + Recharts)
+│   ├── components/ (Navbar, KPICard, AlertBadge)
+│   ├── pages/ (Dashboard, Customers, Network, Predictions, About)
+│   ├── ml/mlEngine.ts (API adapter - no client-side model logic)
+│   └── data/ (demo seed records + synthetic wilaya simulation)
+├── server.ts (Express: static frontend + /api/* reverse proxy)
+├── backend/app/ (FastAPI)
+│   ├── main.py
+│   ├── routes/ (churn.py, anomaly.py, dashboard.py, health.py)
+│   ├── services/ (churn_service.py, anomaly_service.py, dashboard_service.py)
+│   └── schemas/ (Pydantic request/response models)
+├── ml/ (scikit-learn training pipelines - source of truth)
+│   ├── churn/ (train.py, predict.py, preprocessing.py, champion_model.joblib)
+│   ├── anomaly/ (train.py, predict.py, preprocessing.py, isolation_forest.joblib)
+│   └── data/ (telecom_churn_data.csv - 10k rows, telecom_network_cells.csv - 1k rows)
+└── docs/ (methodology.md, limitations.md, model-card.md)`}
             </pre>
           </div>
 
@@ -293,19 +300,19 @@ export const AboutPage: React.FC = () => {
               </div>
               <div className="flex justify-between border-b border-slate-800 pb-1.5">
                 <span className="text-slate-400">Backend API:</span>
-                <span className="text-white font-semibold">FastAPI / Express Node.js Type-Stripping</span>
+                <span className="text-white font-semibold">FastAPI (inference) + Express (static frontend / proxy)</span>
               </div>
               <div className="flex justify-between border-b border-slate-800 pb-1.5">
                 <span className="text-slate-400">AI / ML:</span>
-                <span className="text-white font-semibold">Random Forest, XGBoost, Isolation Forest</span>
+                <span className="text-white font-semibold">Gradient Boosting (champion), Isolation Forest</span>
               </div>
               <div className="flex justify-between border-b border-slate-800 pb-1.5">
-                <span className="text-slate-400">Database:</span>
-                <span className="text-white font-semibold">PostgreSQL (SQLAlchemy / Schema ready)</span>
+                <span className="text-slate-400">Data storage:</span>
+                <span className="text-white font-semibold">CSV-based synthetic datasets, scored at request time - no database</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">Explainable AI:</span>
-                <span className="text-white font-semibold">Feature Attribution & XAI Factor Waterfall</span>
+                <span className="text-white font-semibold">SHAP TreeExplainer (per-prediction attributions)</span>
               </div>
             </div>
           </div>
