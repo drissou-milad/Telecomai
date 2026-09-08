@@ -220,7 +220,7 @@ export const CustomersPage: React.FC<CustomersPageProps> = ({
                      currentCustomer.riskLevel === 'MEDIUM' ? 'Moderate Attrition Risk' : 'Healthy Subscriber'}
                   </span>
                   <span className="text-[11px] text-slate-500">
-                    Calculated by Random Forest v1.4
+                    Calculated by Gradient Boosting (SHAP-explained)
                   </span>
                 </div>
               </div>

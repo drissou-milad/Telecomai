@@ -13,8 +13,8 @@ import {
   LOADING_DASHBOARD_SUMMARY, 
   HOURLY_TRAFFIC_FORECAST 
 } from './data/telecomData';
-import { getDashboardSummary } from './ml/mlEngine';
-import { Customer, NetworkCell, UserRole, DashboardSummary } from './types';
+import { getDashboardSummary, getChurnBenchmark } from './ml/mlEngine';
+import { Customer, NetworkCell, UserRole, DashboardSummary, ModelComparison } from './types';
 import { Sparkles, Terminal, ShieldCheck, Radio, Database } from 'lucide-react';
 
 export default function App() {
@@ -24,6 +24,7 @@ export default function App() {
   const [cells, setCells] = useState<NetworkCell[]>(SEED_NETWORK_CELLS);
   const [summary, setSummary] = useState<DashboardSummary>(LOADING_DASHBOARD_SUMMARY);
   const [summaryError, setSummaryError] = useState<string | null>(null);
+  const [championModel, setChampionModel] = useState<ModelComparison | null>(null);
   const [selectedCustomerId, setSelectedCustomerId] = useState<string>('C10245');
   const [selectedCellId, setSelectedCellId] = useState<string>('CELL-TLM-034');
 
@@ -32,6 +33,10 @@ export default function App() {
     getDashboardSummary()
       .then(setSummary)
       .catch((err) => setSummaryError(err.message || 'Failed to load dashboard summary.'));
+
+    getChurnBenchmark()
+      .then(({ models }) => setChampionModel(models.find(m => m.isChampion) || models[0] || null))
+      .catch(() => {}); // Dashboard card just shows a loading state if this fails; not critical-path.
   }, []);
 
   // Navigate handler
@@ -78,6 +83,7 @@ export default function App() {
         {activePage === 'dashboard' && (
           <DashboardPage
             summary={summary}
+            championModel={championModel}
             wilayas={SYNTHETIC_WILAYA_SIMULATION}
             customers={customers}
             cells={cells}
@@ -137,15 +143,20 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-4 text-[11px] font-mono-num text-slate-400">
-            <span className="flex items-center gap-1 text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> Backend: Connected
+            <span className={`flex items-center gap-1 ${summaryError ? 'text-rose-400' : 'text-emerald-400'}`}>
+              <span className={`w-1.5 h-1.5 rounded-full ${summaryError ? 'bg-rose-500' : 'bg-emerald-500'}`} />
+              {summaryError ? 'Backend: Unreachable' : 'Backend: Connected'}
             </span>
             <span>•</span>
             <span className="flex items-center gap-1 text-sky-400">
               <Database className="w-3 h-3" /> Algeria Wilayas Telemetry (Synthetic)
             </span>
             <span>•</span>
-            <span>ROC-AUC: 0.87 • Champion XGBoost</span>
+            <span>
+              {championModel
+                ? `ROC-AUC: ${championModel.rocAuc.toFixed(2)} • Champion ${championModel.displayName || championModel.name}`
+                : 'Loading model benchmark…'}
+            </span>
           </div>
         </div>
       </footer>
