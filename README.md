@@ -2,6 +2,15 @@
 
 An end-to-end machine learning and operational intelligence platform designed for mobile network operators. TelecomAI combines **supervised customer churn modeling** with explainable AI (SHAP) and **unsupervised cellular radio anomaly detection** (Isolation Forest) into an interactive operations console.
 
+![TelecomAI Dashboard](docs/screenshots/dashboard.png)
+
+## Demo
+
+| Network Overview | Customer Intelligence & Churn |
+|---|---|
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Customer Intelligence](docs/screenshots/customer-intelligence.png) |
+| Real-time KPIs, cell health, and live model performance - all computed from the trained models, not hardcoded. | Per-customer churn probability with SHAP-explained risk factors and a real Gradient Boosting inference call. |
+
 ---
 
 ## Architecture Overview
