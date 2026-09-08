@@ -79,6 +79,44 @@ precision gap.
 
 ---
 
+## Intended Use
+
+Both models are built for a **portfolio/research demonstration** of an
+end-to-end telecom ML pipeline (data → training → explainability → serving),
+not for production deployment at a real operator. Appropriate uses:
+- Demonstrating a full supervised + unsupervised ML pipeline with real
+  explainability (SHAP) and a real serving API.
+- A reference architecture for churn scoring / anomaly detection pipelines.
+- Educational exploration of gradient boosting vs. isolation forest tradeoffs.
+
+**Out of scope**: automated customer-facing retention offers, automated
+network actuation, or any decision affecting a real subscriber or real
+network infrastructure without human review and validation on real data.
+
+## Ethical Considerations
+
+- **No real subscriber data was used or is stored anywhere in this
+  project.** All customer and cell records are synthetically generated
+  (see [Synthetic-Data Disclaimer](#synthetic-data-disclaimer) below).
+- Churn risk scoring on real deployments carries a real risk of
+  over-targeting or excluding certain customer segments if the training
+  data reflects historical bias (e.g. regional, tariff-tier, or usage-pattern
+  bias). This synthetic dataset was generated from simple behavioral rules,
+  not real historical decisions, so it doesn't carry that specific risk —
+  but a production system trained on real operator data would need a
+  fairness audit across subscriber segments before deployment.
+- Network anomaly flags are advisory (see Scope note below) specifically so
+  that a human NOC operator remains in the loop for any action that could
+  affect real service availability.
+
+## Synthetic-Data Disclaimer
+
+All data used to train and evaluate both models — the 10,000-row customer
+dataset and the 1,000-row cell telemetry dataset — is synthetically
+generated for this project. No proprietary operator data (Algerian or
+otherwise) and no real subscriber records are used anywhere in this
+repository. See `docs/limitations.md` for the full discussion.
+
 ## Scope note
 
 Both models are decision-support outputs for a NOC/retention team, not

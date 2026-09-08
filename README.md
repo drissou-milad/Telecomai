@@ -67,7 +67,7 @@ Champion Model                    Isolation Forest
 ```
 TelecomAI/
 │
-├── frontend/ (src/)
+├── src/
 │   ├── components/            # UI components and navigation
 │   ├── pages/                 # Dashboard, Predictions, Anomaly, Customers, Analytics
 │   ├── ml/mlEngine.ts         # Frontend adapter connected to backend APIs
@@ -103,9 +103,14 @@ TelecomAI/
 │   ├── architecture.md        # Technical design & API data flows
 │   ├── methodology.md         # Supervised & unsupervised learning principles
 │   ├── dataset.md             # Feature dictionaries & engineering notes
-│   └── limitations.md         # Scientific honesty & deployment boundaries
+│   ├── limitations.md         # Scientific honesty & deployment boundaries
+│   └── model-card.md          # Concise model card (task, metrics, limitations)
 │
+├── Dockerfile                 # Frontend (React + Express proxy) container
+├── backend/Dockerfile         # Backend (FastAPI) container
 ├── docker-compose.yml         # Containerized multi-service orchestration
+├── render.yaml                # Render Blueprint (one-click 2-service deploy)
+├── vercel.json                # Alternate static-frontend deploy config
 ├── README.md                  # Project documentation
 └── LICENSE                    # MIT License
 ```
