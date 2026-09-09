@@ -2,6 +2,10 @@
 
 An end-to-end machine learning and operational intelligence platform designed for mobile network operators. TelecomAI combines **supervised customer churn modeling** with explainable AI (SHAP) and **unsupervised cellular radio anomaly detection** (Isolation Forest) into an interactive operations console.
 
+**🌐 [Live Demo](https://telecomai-web.onrender.com)** · **📊 [API Docs](https://telecomai-api.onrender.com/docs)** · **💻 Source Code (this repo)**
+
+> Hosted on Render's free tier - the backend spins down after 15 minutes of inactivity, so the first request after a gap can take 30-60 seconds to wake up. Refresh if the dashboard looks empty on first load.
+
 ![TelecomAI Dashboard](docs/screenshots/dashboard.png)
 
 ## Demo
